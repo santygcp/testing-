@@ -7,4 +7,19 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/global-mobility-services/testingsanty']
 
-# Replace $PROJECT_ID with your actual Google Cloud project ID.
+  # Create the Cloud Run service.
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+    - 'beta'
+    - 'run'
+    - 'deploy'
+    - 'my-service'
+    - '--image'
+    - 'gcr.io/global-mobility-services/testingsanty:latest'
+    - '--platform'
+    - 'managed'
+    - '--region'
+    - 'us-central1'
+    - '--port'
+    - '8080'
+    - '--allow-unauthenticated'
