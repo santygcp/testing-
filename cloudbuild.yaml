@@ -24,10 +24,10 @@ steps:
     - '8080'
     - '--allow-unauthenticated'
     
-  - name: 'gcr.io/cloud-builders/bash'
-    args:
-    - '-c'
-    - 'CLOUD_RUN_URL=$(gcloud beta run services describe my-service --platform managed --region us-central1 --format="value(status.url)")'
+#   - name: 'gcr.io/cloud-builders/bash'
+#     args:
+#     - '-c'
+#     - 'CLOUD_RUN_URL=$(gcloud beta run services describe my-service --platform managed --region us-central1 --format="value(status.url)")'
   # creating the cloud -scheduler 
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
@@ -42,7 +42,7 @@ steps:
     - '--time-zone'
     - 'EET'
     - '--uri'
-    - '$CLOUD_RUN_URL'
+    - 'gcloud beta run services describe my-service --platform managed --region us-central1 --format="value(status.url)"'
     - '--http-method'
     - 'POST'
     - '--min-backoff'
