@@ -1,31 +1,60 @@
 steps:
+  # Build the Docker image.
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/global-mobility-services/testingsanty', 'serverless-shell-scripts/.']
+
+  # Push the image to GCR.IO.
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/global-mobility-services/testingsanty']
+
+  # Create the Cloud Run service.
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
-      - run
-      - deploy
-      - SERVICE_NAME
-      - --image=gcr.io/global-mobility-services/testingsanty:latest
-      - --platform=managed
-      - --region=us-central1
-      - --allow-unauthenticated
-      - --port=8080
+    - 'beta'
+    - 'run'
+    - 'deploy'
+    - 'my-service'
+    - '--image'
+    - 'gcr.io/global-mobility-services/testingsanty:latest'
+    - '--platform'
+    - 'managed'
+    - '--region'
+    - 'us-central1'
+    - '--port'
+    - '8080'
+    - '--allow-unauthenticated'
+    
+#   - name: 'gcr.io/cloud-builders/bash'
+#     args:
+#     - '-c'
+#     - 'CLOUD_RUN_URL=$(gcloud beta run services describe my-service --platform managed --region us-central1 --format="value(status.url)")'
+#     env:
+#     - 'CLOUD_RUN_URL'
+  # creating the cloud -scheduler 
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
-      - beta
-      - scheduler
-      - jobs
-      - create
-      - http
-      - job-2
-      - --schedule="0 0/12 * * *"
-      - --time-zone="EET"
-      - --uri=${CLOUD_RUN_URL}
-      - --http-method=POST
-      - --min-backoff=6h
-      - --max-backoff=6h
-      - --max-doublings=5
-      - --attempt-deadline=30m
+    - 'beta'
+    - 'scheduler'
+    - 'jobs'
+    - 'create'
+    - 'http'
+    - 'my-job'
+    - '--schedule'
+    - '0 */12 * * *'
+    - '--time-zone'
+    - 'EET'
+    # - '--uri'
+    - uri=${CLOUD_RUN_URL}
+    # - 'https://my-service-kocd5g6wwq-uc.a.run.app'
+    - '--http-method'
+    - 'POST'
+    - '--min-backoff'
+    - '6h'
+    - '--max-backoff'
+    - '6h'
+    - '--max-doublings'
+    - '5'
+    - '--attempt-deadline'
+    - '30m'
 substitutions:
   CLOUD_RUN_URL: "https://$(gcloud run services describe --format='value(status.url)' --platform managed SERVICE_NAME --region us-central1)"
-  SERVICE_NAME: testing-2
-  PROJECT_ID: global-mobility-services
