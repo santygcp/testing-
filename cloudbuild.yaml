@@ -42,7 +42,7 @@ steps:
     - '--time-zone'
     - 'EET'
     - '--uri'
-    - 'gcloud beta run services describe my-service --platform managed --region us-central1 --format="value(status.url)"'
+    - 'https://my-service-kocd5g6wwq-uc.a.run.app'
     - '--http-method'
     - 'POST'
     - '--min-backoff'
