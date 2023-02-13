@@ -1,9 +1,10 @@
 steps:
-- name: ‘gcr.io/cloud-builders/docker’
-args: [‘build’, ‘-t’, ‘gcr.io/santytestcloudrun’’, ‘serverless-shell-scripts/.’]
-# - name: ‘gcr.io/cloud-builders/docker’
-# args: [‘push’, ‘gcr.io/santytestcloudrun’’]
-# - name: ‘gcr.io/cloud-builders/gcloud’
-# args: [‘beta’, ‘run’, ‘deploy’, ‘testing ’, ‘ — image’, ‘gcr.io/santytestcloudrun’’, ‘ — port’, ‘80’, ‘ — region’, ‘europe-west1’, ‘ — platform’, ‘managed’, ‘ — allow-unauthenticated’]
-# images:
-# - ‘gcr.io/santytestcloudrun’
+  # Build the Docker image.
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/global-mobility-services/testingsanty', 'serverless-shell-scripts/.']
+
+  # Push the image to GCR.IO.
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/global-mobility-services/testingsanty']
+
+# Replace $PROJECT_ID with your actual Google Cloud project ID.
