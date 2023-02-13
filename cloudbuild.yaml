@@ -28,8 +28,8 @@ steps:
     args:
     - '-c'
     - 'CLOUD_RUN_URL=$(gcloud beta run services describe my-service --platform managed --region us-central1 --format="value(status.url)")'
-    env:
-    - 'CLOUD_RUN_URL'
+ env:
+   - 'CLOUD_RUN_URL'
   # creating the cloud -scheduler 
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
