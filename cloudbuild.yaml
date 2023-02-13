@@ -56,3 +56,5 @@ steps:
     - '5'
     - '--attempt-deadline'
     - '30m'
+    env:
+    - 'CLOUD_RUN_URL'
