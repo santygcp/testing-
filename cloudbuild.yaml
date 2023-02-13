@@ -23,10 +23,13 @@ steps:
     - '--port'
     - '8080'
     - '--allow-unauthenticated'
+    
+  - name: 'gcr.io/cloud-builders/bash'
+    args:
+    - '-c'
+    - 'CLOUD_RUN_URL=$(gcloud beta run services describe my-service --platform managed --region us-central1 --format="value(status.url)")'
   # creating the cloud -scheduler 
   - name: 'gcr.io/cloud-builders/gcloud'
-    env:
-    - 'CLOUD_RUN_URL=$(gcloud beta run services describe my-service --platform managed --region us-central1 --format="value(status.url)")'
     args:
     - 'beta'
     - 'scheduler'
