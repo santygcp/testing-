@@ -57,4 +57,4 @@ steps:
     - '--attempt-deadline'
     - '30m'
 substitutions:
-  CLOUD_RUN_URL: "https://$(gcloud run services describe --format='value(status.url)' --platform managed SERVICE_NAME --region us-central1)"
+  CLOUD_RUN_URL: "gcloud beta run services describe my-service --platform managed --region us-central1 --format="value(status.url)"
