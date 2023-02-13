@@ -1,28 +1,29 @@
-# steps:
-#   # Build the Docker image.
-#   - name: 'gcr.io/cloud-builders/docker'
-#     args: ['build', '-t', 'gcr.io/global-mobility-services/testingsanty', 'serverless-shell-scripts/.']
+steps:
+  # Build the Docker image.
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/global-mobility-services/testingsanty', 'serverless-shell-scripts/.']
 
-#   # Push the image to GCR.IO.
-#   - name: 'gcr.io/cloud-builders/docker'
-#     args: ['push', 'gcr.io/global-mobility-services/testingsanty']
+  # Push the image to GCR.IO.
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/global-mobility-services/testingsanty']
 
-#   # Create the Cloud Run service.
-#   - name: 'gcr.io/cloud-builders/gcloud'
-#     args:
-#     - 'beta'
-#     - 'run'
-#     - 'deploy'
-#     - 'my-service'
-#     - '--image'
-#     - 'gcr.io/global-mobility-services/testingsanty:latest'
-#     - '--platform'
-#     - 'managed'
-#     - '--region'
-#     - 'us-central1'
-#     - '--port'
-#     - '8080'
-#     - '--allow-unauthenticated'
+  # Create the Cloud Run service.
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+    - 'beta'
+    - 'run'
+    - 'deploy'
+    - 'my-service'
+    - '--image'
+    - 'gcr.io/global-mobility-services/testingsanty:latest'
+    - '--platform'
+    - 'managed'
+    - '--region'
+    - 'us-central1'
+    - '--port'
+    - '8080'
+    - '--allow-unauthenticated'
+  # creating the cloud -scheduler 
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
     - 'beta'
