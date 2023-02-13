@@ -1,0 +1,9 @@
+steps:
+- name: ‘gcr.io/cloud-builders/docker’
+args: [‘build’, ‘-t’, ‘gcr.io/santytestcloudrun’’, ‘serverless-expeditions/serverless-shell-scripts/.’]
+# - name: ‘gcr.io/cloud-builders/docker’
+# args: [‘push’, ‘gcr.io/santytestcloudrun’’]
+# - name: ‘gcr.io/cloud-builders/gcloud’
+# args: [‘beta’, ‘run’, ‘deploy’, ‘testing ’, ‘ — image’, ‘gcr.io/santytestcloudrun’’, ‘ — port’, ‘80’, ‘ — region’, ‘europe-west1’, ‘ — platform’, ‘managed’, ‘ — allow-unauthenticated’]
+# images:
+# - ‘gcr.io/santytestcloudrun’
